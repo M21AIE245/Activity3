@@ -89,11 +89,11 @@ for name, optimizer in optimizers.items():
 
 def top_k_accuracy(input, target, k):
     with torch.no_grad():
-        _, pred = input.topk(k, 5, True, True)
+        _, pred = input.topk(k, 1, True, True)
         pred = pred.t()
         correct = pred.eq(target.view(1, -1).expand_as(pred))
         correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
-        return correct_k.mul_(200.0 / input.size(0))
+        return correct_k.mul_(100.0 / input.size(0))
 
 model.eval()  # Set the model to evaluation mode
 with torch.no_grad():
